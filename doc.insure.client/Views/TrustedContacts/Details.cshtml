@@ -1,0 +1,74 @@
+﻿@model doc.insure.entities.models.TrustedContact
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TrustedContact</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactGuid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactGuid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppUser1.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppUser1.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelationShipType.RelationShipTypeDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelationShipType.RelationShipTypeDesc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrustedContactId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

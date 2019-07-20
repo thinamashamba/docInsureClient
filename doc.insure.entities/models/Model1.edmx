@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="docInsureEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminUser">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="AppUserId" />
+          </Key>
+          <Property Name="AppUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+          </Key>
+          <Property Name="DocumentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppUserId" Type="int" Nullable="false" />
+          <Property Name="DocumentTitle" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DocumentDescription" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DocumentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DocumentLink" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="OriginalFileName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="dtCreated" Type="datetime" Nullable="false" />
+          <Property Name="DocumentCategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentCategory">
+          <Key>
+            <PropertyRef Name="DocumentCategoryId" />
+          </Key>
+          <Property Name="DocumentCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocumentCategoryDesc" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelationShipType">
+          <Key>
+            <PropertyRef Name="RelationShipTypeId" />
+          </Key>
+          <Property Name="RelationShipTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RelationShipTypeDesc" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrustedContact">
+          <Key>
+            <PropertyRef Name="TrustedContactId" />
+          </Key>
+          <Property Name="TrustedContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppUserId" Type="int" Nullable="false" />
+          <Property Name="ContactAppUserId" Type="int" />
+          <Property Name="TrustedContactCreated" Type="datetime" Nullable="false" />
+          <Property Name="TrustedContactEmail" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TrustedContactFullName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="RelationShipTypeId" Type="int" Nullable="false" />
+          <Property Name="TrustedContactGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TrustedContactStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrustedContactStatus">
+          <Key>
+            <PropertyRef Name="TrustedContactStatusId" />
+          </Key>
+          <Property Name="TrustedContactStatusId" Type="int" Nullable="false" />
+          <Property Name="TrustedContactStatusDesc" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'a_finsure.dbo.DocumentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DocumentView">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+            <PropertyRef Name="AppUserId" />
+            <PropertyRef Name="DocumentOwner" />
+            <PropertyRef Name="DocumentTitle" />
+            <PropertyRef Name="DocumentDescription" />
+            <PropertyRef Name="DocumentGUID" />
+            <PropertyRef Name="DocumentLink" />
+            <PropertyRef Name="OriginalFileName" />
+            <PropertyRef Name="DocumentCategoryId" />
+            <PropertyRef Name="DocumentCategoryDesc" />
+            <PropertyRef Name="dtCreated" />
+          </Key>
+          <Property Name="DocumentId" Type="int" Nullable="false" />
+          <Property Name="AppUserId" Type="int" Nullable="false" />
+          <Property Name="DocumentOwner" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DocumentTitle" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DocumentDescription" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DocumentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DocumentLink" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="OriginalFileName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DocumentCategoryId" Type="int" Nullable="false" />
+          <Property Name="DocumentCategoryDesc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="dtCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'a_finsure.dbo.TrustedContactView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TrustedContactView">
+          <Key>
+            <PropertyRef Name="TrustedContactId" />
+            <PropertyRef Name="AppUserId" />
+            <PropertyRef Name="AppUserFullName" />
+            <PropertyRef Name="ContactAppUserId" />
+            <PropertyRef Name="ContactAppUserFullName" />
+            <PropertyRef Name="TrustedContactCreated" />
+            <PropertyRef Name="TrustedContactEmail" />
+            <PropertyRef Name="TrustedContactFullName" />
+            <PropertyRef Name="RelationShipTypeId" />
+            <PropertyRef Name="RelationShipTypeDesc" />
+            <PropertyRef Name="TrustedContactGuid" />
+            <PropertyRef Name="TrustedContactStatusDesc" />
+          </Key>
+          <Property Name="TrustedContactId" Type="int" Nullable="false" />
+          <Property Name="AppUserId" Type="int" Nullable="false" />
+          <Property Name="AppUserFullName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ContactAppUserId" Type="int" Nullable="false" />
+          <Property Name="ContactAppUserFullName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TrustedContactCreated" Type="datetime" Nullable="false" />
+          <Property Name="TrustedContactEmail" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TrustedContactFullName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="RelationShipTypeId" Type="int" Nullable="false" />
+          <Property Name="RelationShipTypeDesc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TrustedContactGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TrustedContactStatusId" Type="int" />
+          <Property Name="TrustedContactStatusDesc" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Document_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="AppUserId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="AppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_DocumentCategory">
+          <End Role="DocumentCategory" Type="Self.DocumentCategory" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentCategory">
+              <PropertyRef Name="DocumentCategoryId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="DocumentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+          <End Role="TrustedContact" Type="Self.TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="AppUserId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="AppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_AppUser1">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="TrustedContact" Type="Self.TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="AppUserId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="ContactAppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_RelationShipType">
+          <End Role="RelationShipType" Type="Self.RelationShipType" Multiplicity="1" />
+          <End Role="TrustedContact" Type="Self.TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelationShipType">
+              <PropertyRef Name="RelationShipTypeId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="RelationShipTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_TrustedContactStatus">
+          <End Role="TrustedContactStatus" Type="Self.TrustedContactStatus" Multiplicity="1" />
+          <End Role="TrustedContact" Type="Self.TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrustedContactStatus">
+              <PropertyRef Name="TrustedContactStatusId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="TrustedContactStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="docInsureEntitiesModelStoreContainer">
+          <EntitySet Name="AdminUser" EntityType="Self.AdminUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentCategory" EntityType="Self.DocumentCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelationShipType" EntityType="Self.RelationShipType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrustedContact" EntityType="Self.TrustedContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrustedContactStatus" EntityType="Self.TrustedContactStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentView" EntityType="Self.DocumentView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DocumentView].[DocumentId] AS [DocumentId], 
+    [DocumentView].[AppUserId] AS [AppUserId], 
+    [DocumentView].[DocumentOwner] AS [DocumentOwner], 
+    [DocumentView].[DocumentTitle] AS [DocumentTitle], 
+    [DocumentView].[DocumentDescription] AS [DocumentDescription], 
+    [DocumentView].[DocumentGUID] AS [DocumentGUID], 
+    [DocumentView].[DocumentLink] AS [DocumentLink], 
+    [DocumentView].[OriginalFileName] AS [OriginalFileName], 
+    [DocumentView].[DocumentCategoryId] AS [DocumentCategoryId], 
+    [DocumentView].[DocumentCategoryDesc] AS [DocumentCategoryDesc], 
+    [DocumentView].[dtCreated] AS [dtCreated]
+    FROM [dbo].[DocumentView] AS [DocumentView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TrustedContactView" EntityType="Self.TrustedContactView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TrustedContactView].[TrustedContactId] AS [TrustedContactId], 
+    [TrustedContactView].[AppUserId] AS [AppUserId], 
+    [TrustedContactView].[AppUserFullName] AS [AppUserFullName], 
+    [TrustedContactView].[ContactAppUserId] AS [ContactAppUserId], 
+    [TrustedContactView].[ContactAppUserFullName] AS [ContactAppUserFullName], 
+    [TrustedContactView].[TrustedContactCreated] AS [TrustedContactCreated], 
+    [TrustedContactView].[TrustedContactEmail] AS [TrustedContactEmail], 
+    [TrustedContactView].[TrustedContactFullName] AS [TrustedContactFullName], 
+    [TrustedContactView].[RelationShipTypeId] AS [RelationShipTypeId], 
+    [TrustedContactView].[RelationShipTypeDesc] AS [RelationShipTypeDesc], 
+    [TrustedContactView].[TrustedContactGuid] AS [TrustedContactGuid], 
+    [TrustedContactView].[TrustedContactStatusId] AS [TrustedContactStatusId], 
+    [TrustedContactView].[TrustedContactStatusDesc] AS [TrustedContactStatusDesc]
+    FROM [dbo].[TrustedContactView] AS [TrustedContactView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Document_AppUser" Association="Self.FK_Document_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocumentCategory" Association="Self.FK_Document_DocumentCategory">
+            <End Role="DocumentCategory" EntitySet="DocumentCategory" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_AppUser" Association="Self.FK_TrustedContact_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="TrustedContact" EntitySet="TrustedContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_AppUser1" Association="Self.FK_TrustedContact_AppUser1">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="TrustedContact" EntitySet="TrustedContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_RelationShipType" Association="Self.FK_TrustedContact_RelationShipType">
+            <End Role="RelationShipType" EntitySet="RelationShipType" />
+            <End Role="TrustedContact" EntitySet="TrustedContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_TrustedContactStatus" Association="Self.FK_TrustedContact_TrustedContactStatus">
+            <End Role="TrustedContactStatus" EntitySet="TrustedContactStatus" />
+            <End Role="TrustedContact" EntitySet="TrustedContact" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="docInsureEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="docInsureEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminUsers" EntityType="docInsureEntitiesModel.AdminUser" />
+          <EntitySet Name="AppUsers" EntityType="docInsureEntitiesModel.AppUser" />
+          <EntitySet Name="Documents" EntityType="docInsureEntitiesModel.Document" />
+          <EntitySet Name="DocumentCategories" EntityType="docInsureEntitiesModel.DocumentCategory" />
+          <EntitySet Name="RelationShipTypes" EntityType="docInsureEntitiesModel.RelationShipType" />
+          <EntitySet Name="TrustedContacts" EntityType="docInsureEntitiesModel.TrustedContact" />
+          <EntitySet Name="TrustedContactStatus" EntityType="docInsureEntitiesModel.TrustedContactStatu" />
+          <EntitySet Name="DocumentViews" EntityType="docInsureEntitiesModel.DocumentView" />
+          <EntitySet Name="TrustedContactViews" EntityType="docInsureEntitiesModel.TrustedContactView" />
+          <AssociationSet Name="FK_Document_AppUser" Association="docInsureEntitiesModel.FK_Document_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_AppUser" Association="docInsureEntitiesModel.FK_TrustedContact_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="TrustedContact" EntitySet="TrustedContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_AppUser1" Association="docInsureEntitiesModel.FK_TrustedContact_AppUser1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="TrustedContact" EntitySet="TrustedContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocumentCategory" Association="docInsureEntitiesModel.FK_Document_DocumentCategory">
+            <End Role="DocumentCategory" EntitySet="DocumentCategories" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_RelationShipType" Association="docInsureEntitiesModel.FK_TrustedContact_RelationShipType">
+            <End Role="RelationShipType" EntitySet="RelationShipTypes" />
+            <End Role="TrustedContact" EntitySet="TrustedContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrustedContact_TrustedContactStatus" Association="docInsureEntitiesModel.FK_TrustedContact_TrustedContactStatus">
+            <End Role="TrustedContactStatu" EntitySet="TrustedContactStatus" />
+            <End Role="TrustedContact" EntitySet="TrustedContacts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AdminUser">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="AppUserId" />
+          </Key>
+          <Property Name="AppUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Documents" Relationship="docInsureEntitiesModel.FK_Document_AppUser" FromRole="AppUser" ToRole="Document" />
+          <NavigationProperty Name="TrustedContacts" Relationship="docInsureEntitiesModel.FK_TrustedContact_AppUser" FromRole="AppUser" ToRole="TrustedContact" />
+          <NavigationProperty Name="TrustedContacts1" Relationship="docInsureEntitiesModel.FK_TrustedContact_AppUser1" FromRole="AppUser" ToRole="TrustedContact" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+          </Key>
+          <Property Name="DocumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppUserId" Type="Int32" Nullable="false" />
+          <Property Name="DocumentTitle" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentGUID" Type="Guid" Nullable="false" />
+          <Property Name="DocumentLink" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalFileName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="dtCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DocumentCategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="docInsureEntitiesModel.FK_Document_AppUser" FromRole="Document" ToRole="AppUser" />
+          <NavigationProperty Name="DocumentCategory" Relationship="docInsureEntitiesModel.FK_Document_DocumentCategory" FromRole="Document" ToRole="DocumentCategory" />
+        </EntityType>
+        <EntityType Name="DocumentCategory">
+          <Key>
+            <PropertyRef Name="DocumentCategoryId" />
+          </Key>
+          <Property Name="DocumentCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentCategoryDesc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Documents" Relationship="docInsureEntitiesModel.FK_Document_DocumentCategory" FromRole="DocumentCategory" ToRole="Document" />
+        </EntityType>
+        <EntityType Name="RelationShipType">
+          <Key>
+            <PropertyRef Name="RelationShipTypeId" />
+          </Key>
+          <Property Name="RelationShipTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RelationShipTypeDesc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TrustedContacts" Relationship="docInsureEntitiesModel.FK_TrustedContact_RelationShipType" FromRole="RelationShipType" ToRole="TrustedContact" />
+        </EntityType>
+        <EntityType Name="TrustedContact">
+          <Key>
+            <PropertyRef Name="TrustedContactId" />
+          </Key>
+          <Property Name="TrustedContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppUserId" Type="Int32" Nullable="false" />
+          <Property Name="ContactAppUserId" Type="Int32" />
+          <Property Name="TrustedContactCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TrustedContactEmail" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TrustedContactFullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RelationShipTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TrustedContactGuid" Type="Guid" Nullable="false" />
+          <Property Name="TrustedContactStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="docInsureEntitiesModel.FK_TrustedContact_AppUser" FromRole="TrustedContact" ToRole="AppUser" />
+          <NavigationProperty Name="AppUser1" Relationship="docInsureEntitiesModel.FK_TrustedContact_AppUser1" FromRole="TrustedContact" ToRole="AppUser" />
+          <NavigationProperty Name="RelationShipType" Relationship="docInsureEntitiesModel.FK_TrustedContact_RelationShipType" FromRole="TrustedContact" ToRole="RelationShipType" />
+          <NavigationProperty Name="TrustedContactStatu" Relationship="docInsureEntitiesModel.FK_TrustedContact_TrustedContactStatus" FromRole="TrustedContact" ToRole="TrustedContactStatu" />
+        </EntityType>
+        <EntityType Name="TrustedContactStatu">
+          <Key>
+            <PropertyRef Name="TrustedContactStatusId" />
+          </Key>
+          <Property Name="TrustedContactStatusId" Type="Int32" Nullable="false" />
+          <Property Name="TrustedContactStatusDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TrustedContacts" Relationship="docInsureEntitiesModel.FK_TrustedContact_TrustedContactStatus" FromRole="TrustedContactStatu" ToRole="TrustedContact" />
+        </EntityType>
+        <EntityType Name="DocumentView">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+            <PropertyRef Name="AppUserId" />
+            <PropertyRef Name="DocumentOwner" />
+            <PropertyRef Name="DocumentTitle" />
+            <PropertyRef Name="DocumentDescription" />
+            <PropertyRef Name="DocumentGUID" />
+            <PropertyRef Name="DocumentLink" />
+            <PropertyRef Name="OriginalFileName" />
+            <PropertyRef Name="DocumentCategoryId" />
+            <PropertyRef Name="DocumentCategoryDesc" />
+            <PropertyRef Name="dtCreated" />
+          </Key>
+          <Property Name="DocumentId" Type="Int32" Nullable="false" />
+          <Property Name="AppUserId" Type="Int32" Nullable="false" />
+          <Property Name="DocumentOwner" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentTitle" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentGUID" Type="Guid" Nullable="false" />
+          <Property Name="DocumentLink" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalFileName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="DocumentCategoryDesc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="dtCreated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="TrustedContactView">
+          <Key>
+            <PropertyRef Name="TrustedContactId" />
+            <PropertyRef Name="AppUserId" />
+            <PropertyRef Name="AppUserFullName" />
+            <PropertyRef Name="ContactAppUserId" />
+            <PropertyRef Name="ContactAppUserFullName" />
+            <PropertyRef Name="TrustedContactCreated" />
+            <PropertyRef Name="TrustedContactEmail" />
+            <PropertyRef Name="TrustedContactFullName" />
+            <PropertyRef Name="RelationShipTypeId" />
+            <PropertyRef Name="RelationShipTypeDesc" />
+            <PropertyRef Name="TrustedContactGuid" />
+            <PropertyRef Name="TrustedContactStatusDesc" />
+          </Key>
+          <Property Name="TrustedContactId" Type="Int32" Nullable="false" />
+          <Property Name="AppUserId" Type="Int32" Nullable="false" />
+          <Property Name="AppUserFullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ContactAppUserId" Type="Int32" Nullable="false" />
+          <Property Name="ContactAppUserFullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TrustedContactCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TrustedContactEmail" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TrustedContactFullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RelationShipTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RelationShipTypeDesc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TrustedContactGuid" Type="Guid" Nullable="false" />
+          <Property Name="TrustedContactStatusId" Type="Int32" />
+          <Property Name="TrustedContactStatusDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Document_AppUser">
+          <End Type="docInsureEntitiesModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="docInsureEntitiesModel.Document" Role="Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="AppUserId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="AppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_AppUser">
+          <End Type="docInsureEntitiesModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="docInsureEntitiesModel.TrustedContact" Role="TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="AppUserId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="AppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_AppUser1">
+          <End Type="docInsureEntitiesModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="docInsureEntitiesModel.TrustedContact" Role="TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="AppUserId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="ContactAppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_DocumentCategory">
+          <End Type="docInsureEntitiesModel.DocumentCategory" Role="DocumentCategory" Multiplicity="1" />
+          <End Type="docInsureEntitiesModel.Document" Role="Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentCategory">
+              <PropertyRef Name="DocumentCategoryId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="DocumentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_RelationShipType">
+          <End Type="docInsureEntitiesModel.RelationShipType" Role="RelationShipType" Multiplicity="1" />
+          <End Type="docInsureEntitiesModel.TrustedContact" Role="TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelationShipType">
+              <PropertyRef Name="RelationShipTypeId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="RelationShipTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrustedContact_TrustedContactStatus">
+          <End Type="docInsureEntitiesModel.TrustedContactStatu" Role="TrustedContactStatu" Multiplicity="1" />
+          <End Type="docInsureEntitiesModel.TrustedContact" Role="TrustedContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrustedContactStatu">
+              <PropertyRef Name="TrustedContactStatusId" />
+            </Principal>
+            <Dependent Role="TrustedContact">
+              <PropertyRef Name="TrustedContactStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="docInsureEntitiesModelStoreContainer" CdmEntityContainer="docInsureEntities">
+          <EntitySetMapping Name="AdminUsers">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.AdminUser">
+              <MappingFragment StoreEntitySet="AdminUser">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.AppUser">
+              <MappingFragment StoreEntitySet="AppUser">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="DocumentCategoryId" ColumnName="DocumentCategoryId" />
+                <ScalarProperty Name="dtCreated" ColumnName="dtCreated" />
+                <ScalarProperty Name="OriginalFileName" ColumnName="OriginalFileName" />
+                <ScalarProperty Name="DocumentLink" ColumnName="DocumentLink" />
+                <ScalarProperty Name="DocumentGUID" ColumnName="DocumentGUID" />
+                <ScalarProperty Name="DocumentDescription" ColumnName="DocumentDescription" />
+                <ScalarProperty Name="DocumentTitle" ColumnName="DocumentTitle" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentCategories">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.DocumentCategory">
+              <MappingFragment StoreEntitySet="DocumentCategory">
+                <ScalarProperty Name="DocumentCategoryDesc" ColumnName="DocumentCategoryDesc" />
+                <ScalarProperty Name="DocumentCategoryId" ColumnName="DocumentCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelationShipTypes">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.RelationShipType">
+              <MappingFragment StoreEntitySet="RelationShipType">
+                <ScalarProperty Name="RelationShipTypeDesc" ColumnName="RelationShipTypeDesc" />
+                <ScalarProperty Name="RelationShipTypeId" ColumnName="RelationShipTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrustedContacts">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.TrustedContact">
+              <MappingFragment StoreEntitySet="TrustedContact">
+                <ScalarProperty Name="TrustedContactStatusId" ColumnName="TrustedContactStatusId" />
+                <ScalarProperty Name="TrustedContactGuid" ColumnName="TrustedContactGuid" />
+                <ScalarProperty Name="RelationShipTypeId" ColumnName="RelationShipTypeId" />
+                <ScalarProperty Name="TrustedContactFullName" ColumnName="TrustedContactFullName" />
+                <ScalarProperty Name="TrustedContactEmail" ColumnName="TrustedContactEmail" />
+                <ScalarProperty Name="TrustedContactCreated" ColumnName="TrustedContactCreated" />
+                <ScalarProperty Name="ContactAppUserId" ColumnName="ContactAppUserId" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+                <ScalarProperty Name="TrustedContactId" ColumnName="TrustedContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrustedContactStatus">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.TrustedContactStatu">
+              <MappingFragment StoreEntitySet="TrustedContactStatus">
+                <ScalarProperty Name="TrustedContactStatusDesc" ColumnName="TrustedContactStatusDesc" />
+                <ScalarProperty Name="TrustedContactStatusId" ColumnName="TrustedContactStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentViews">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.DocumentView">
+              <MappingFragment StoreEntitySet="DocumentView">
+                <ScalarProperty Name="dtCreated" ColumnName="dtCreated" />
+                <ScalarProperty Name="DocumentCategoryDesc" ColumnName="DocumentCategoryDesc" />
+                <ScalarProperty Name="DocumentCategoryId" ColumnName="DocumentCategoryId" />
+                <ScalarProperty Name="OriginalFileName" ColumnName="OriginalFileName" />
+                <ScalarProperty Name="DocumentLink" ColumnName="DocumentLink" />
+                <ScalarProperty Name="DocumentGUID" ColumnName="DocumentGUID" />
+                <ScalarProperty Name="DocumentDescription" ColumnName="DocumentDescription" />
+                <ScalarProperty Name="DocumentTitle" ColumnName="DocumentTitle" />
+                <ScalarProperty Name="DocumentOwner" ColumnName="DocumentOwner" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrustedContactViews">
+            <EntityTypeMapping TypeName="docInsureEntitiesModel.TrustedContactView">
+              <MappingFragment StoreEntitySet="TrustedContactView">
+                <ScalarProperty Name="TrustedContactStatusDesc" ColumnName="TrustedContactStatusDesc" />
+                <ScalarProperty Name="TrustedContactStatusId" ColumnName="TrustedContactStatusId" />
+                <ScalarProperty Name="TrustedContactGuid" ColumnName="TrustedContactGuid" />
+                <ScalarProperty Name="RelationShipTypeDesc" ColumnName="RelationShipTypeDesc" />
+                <ScalarProperty Name="RelationShipTypeId" ColumnName="RelationShipTypeId" />
+                <ScalarProperty Name="TrustedContactFullName" ColumnName="TrustedContactFullName" />
+                <ScalarProperty Name="TrustedContactEmail" ColumnName="TrustedContactEmail" />
+                <ScalarProperty Name="TrustedContactCreated" ColumnName="TrustedContactCreated" />
+                <ScalarProperty Name="ContactAppUserFullName" ColumnName="ContactAppUserFullName" />
+                <ScalarProperty Name="ContactAppUserId" ColumnName="ContactAppUserId" />
+                <ScalarProperty Name="AppUserFullName" ColumnName="AppUserFullName" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+                <ScalarProperty Name="TrustedContactId" ColumnName="TrustedContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

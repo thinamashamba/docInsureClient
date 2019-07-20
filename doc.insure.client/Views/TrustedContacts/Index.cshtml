@@ -1,0 +1,66 @@
+﻿@model IEnumerable<doc.insure.entities.custom.TrustedContactResult>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Contact
+        </th>
+        
+        <th>
+            Email
+        </th>
+
+        <th>
+            Status
+        </th>
+        
+        
+        
+        <th>
+            Relationship
+        </th>
+        <th>
+            Date Added
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrustedContactFullName)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.TrustedContactEmail)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TrustedContactStatusDesc)
+        </td>
+        
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.RelationShipTypeDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrustedContactCreatedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TrustedContactId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TrustedContactId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TrustedContactId })
+        </td>
+    </tr>
+}
+
+</table>

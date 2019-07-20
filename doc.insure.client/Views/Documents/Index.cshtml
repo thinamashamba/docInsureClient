@@ -1,0 +1,56 @@
+﻿@model IEnumerable<doc.insure.entities.custom.DocumentResult>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Documents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Owner
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Date Added
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentOwner)
+        </td>
+        <td>
+
+            <a href="@Html.DisplayFor(modelItem => item.DocumentLink)">@Html.DisplayFor(modelItem => item.DocumentTitle)</a>
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentCategoryDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocCreatedDate)
+        </td>
+        
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DocumentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DocumentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })
+        </td>
+    </tr>
+}
+
+</table>

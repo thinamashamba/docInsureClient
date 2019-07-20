@@ -25,23 +25,22 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li>@Html.ActionLink("My Documents", "Index", "Documents")</li>
                     <li>@Html.ActionLink("My Trusted Contacts", "Index", "TrustedContacts")</li>
                 </ul>
 
                 <ul class="nav navbar-nav">
                     <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
+                    @*<li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="hidden-xs">Logged in user: <span class="em">@( Session["User"] != null ? (Session["User"] as AppUser).FullName : "")</span></span>
                         </a>
-                    </li>
-                    <li>
-                        @*<a class="btn btn-primary" href="@Url.Action("Logout", "Home")">Log out<i class="i-custom-logout"></i></a>*@
+                    </li>*@
+                    @*<li>
                         <a href="@Url.Action("Logout", "Home")">Log out<i class="i-custom-logout"></i></a>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>

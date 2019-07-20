@@ -1,0 +1,80 @@
+﻿@model doc.insure.entities.models.TrustedContact
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TrustedContact</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrustedContactGuid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrustedContactGuid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppUser1.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppUser1.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelationShipType.RelationShipTypeDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelationShipType.RelationShipTypeDesc)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
